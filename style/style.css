@@ -8,6 +8,7 @@
 body {
     margin: 0;
   padding: 0;
+  padding-top: 5.5vw;
     background-color: #FFFFFF;
     overflow-x: hidden;
     font-family: var(--montserrat);
@@ -16,6 +17,20 @@ body {
 .header-block {
     display: flex;
     padding: 0.813vw 2.688vw 0.75vw 2.813vw;
+    box-sizing: border-box;
+    position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  background: #FFFFFF;
+  z-index: 1000;
+
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.header-block.header-hidden {
+  transform: translateY(-100%);
 }
 
 .header-menu {
