@@ -1050,7 +1050,7 @@ gap: 2.5vw;
   }
 
   .m-gallery-prev { left: -10.8vw; }
-  .m-gallery-next { right: -6.7vw; }
+  .m-gallery-next { right: -10vw; }
 
   /* ⬇ ВСТАВЬ СВОИ AMG СТРЕЛКИ */
   .m-gallery-prev {
