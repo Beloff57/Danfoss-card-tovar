@@ -334,6 +334,34 @@ document.addEventListener('click', function(e) {
 
 });
 </script>
+<script>
+  let lastScroll = 0;
+const header = document.querySelector('.header-block');
+const scrollThreshold = 80;   // расстояние перед скрытием
+const delta = 15;             // чувствительность движения
 
+window.addEventListener('scroll', () => {
+
+  const currentScroll = window.pageYOffset;
+
+  // не дергаться при мелком движении
+  if (Math.abs(currentScroll - lastScroll) < delta) return;
+
+  // если мы близко к верху — всегда показываем
+  if (currentScroll < scrollThreshold) {
+    header.classList.remove('header-hidden');
+  } 
+  else if (currentScroll > lastScroll) {
+    // скролл вниз
+    header.classList.add('header-hidden');
+  } 
+  else {
+    // скролл вверх
+    header.classList.remove('header-hidden');
+  }
+
+  lastScroll = currentScroll;
+});
+</script>
 </body>
 </html>
