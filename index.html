@@ -29,7 +29,23 @@
              class="contact-soc-icon">
       </a>
         </div>
+
+<div class="burger">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
     </div>
+
+    <div class="mobile-menu">
+  <nav class="mobile-nav">
+    <a href="#catalog">Каталог запчастей</a>
+    <a href="#delivery">Доставка и оплата</a>
+    <a href="">Отзывы</a>
+    <a href="#contacts">Контакты</a>
+  </nav>
+</div>
 
 <div class="layout-with-line">
 
@@ -87,7 +103,7 @@
     <h1 class="product-title">Контроллеры danfoss MCX06D</h1>
     <div class="more-models-btn">Смотреть все модели</div>
     <p class="product-description">
-      Продаём новые оригинальные Контроллеры danfoss:<br> MCX06D, AK-PC351, EKE347 и другие модели.
+      Продаём новые оригинальные Контроллеры danfoss: MCX06D, AK-PC351, EKE347 и другие модели.
     </p>
     <p class="product-opis">❗ Оригинальный товар, не дешёвая копия и не восстановленный контроллер.</p>
     <div class="product-price">
@@ -102,7 +118,7 @@
     <h1 class="product-title">Дисплей для контроллера danfoss MCX06D</h1>
     <div class="more-models-btn">Смотреть все модели</div>
     <p class="product-description">
-      Продаём новые оригинальные дисплеи для контроллеров<br> Danfoss: MCX06D, AK-PC351, EKE347 и совместимых моделей.
+      Продаём новые оригинальные дисплеи для контроллеров Danfoss: MCX06D, AK-PC351, EKE347 и совместимых моделей.
     </p>
     <p class="product-opis">❗ Это оригинальный дисплей, не дешёвая копия и не восстановленный экран.</p>
     <div class="product-price">
@@ -149,6 +165,14 @@
 5 минут можем установить<br> дисплей у нас в мастерской.</p>
         </div>
       </div>
+
+<div class="info-slider-dots">
+  <span class="dot active"></span>
+  <span class="dot"></span>
+  <span class="dot"></span>
+  <span class="dot"></span>
+</div>
+
     </div>
 
   </div>
@@ -362,6 +386,122 @@ window.addEventListener('scroll', () => {
 
   lastScroll = currentScroll;
 });
+</script>
+<script>
+const burger = document.querySelector('.burger');
+const mobileMenu = document.querySelector('.mobile-menu');
+const mobileLinks = document.querySelectorAll('.mobile-nav a');
+
+burger.addEventListener('click', () => {
+  burger.classList.toggle('active');
+  mobileMenu.classList.toggle('active');
+
+  if (mobileMenu.classList.contains('active')) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
+});
+
+/* ===== ЗАКРЫТИЕ ПРИ КЛИКЕ НА ПУНКТ ===== */
+
+mobileLinks.forEach(link => {
+  link.addEventListener('click', () => {
+
+    burger.classList.remove('active');
+    mobileMenu.classList.remove('active');
+    document.body.style.overflow = '';
+
+  });
+});
+</script>
+<script>
+(function () {
+
+  if (!window.matchMedia('(max-width: 440px)').matches) return;
+
+  document.querySelectorAll('.product-item').forEach(product => {
+
+    const gallery = product.querySelector('.product-gallery');
+    const galleryMain = product.querySelector('.product-gallery__main');
+    const mainImg = galleryMain.querySelector('img');
+    const thumbs = product.querySelectorAll('.product-gallery__thumbs img');
+
+    if (!gallery || !mainImg || thumbs.length === 0) return;
+
+    // собираем все изображения
+    const images = [
+      mainImg.src,
+      ...Array.from(thumbs).map(img => img.src)
+    ];
+
+    const uniqueImages = [...new Set(images)];
+    let currentIndex = 0;
+
+    // создаём стрелки
+    const prev = document.createElement('button');
+    const next = document.createElement('button');
+
+    prev.className = 'm-gallery-arrow m-gallery-prev';
+    next.className = 'm-gallery-arrow m-gallery-next';
+
+    gallery.appendChild(prev);
+    gallery.appendChild(next);
+
+    function updateImage() {
+      mainImg.src = uniqueImages[currentIndex];
+    }
+
+    prev.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      currentIndex =
+        (currentIndex - 1 + uniqueImages.length) % uniqueImages.length;
+      updateImage();
+    });
+
+    next.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      currentIndex =
+        (currentIndex + 1) % uniqueImages.length;
+      updateImage();
+    });
+
+  });
+
+})();
+</script>
+<script>
+(function () {
+
+  if (!window.matchMedia('(max-width: 440px)').matches) return;
+
+  const slider = document.querySelector('.info-block-bottom');
+  const dots = document.querySelectorAll('.info-slider-dots .dot');
+  const cards = document.querySelectorAll('.info-card');
+
+  if (!slider || cards.length === 0) return;
+
+  function updateDots() {
+
+    const cardWidth = cards[0].offsetWidth;
+    const scrollLeft = slider.scrollLeft;
+
+    const index = Math.round(scrollLeft / cardWidth);
+
+    dots.forEach(dot => dot.classList.remove('active'));
+
+    if (dots[index]) {
+      dots[index].classList.add('active');
+    }
+  }
+
+  slider.addEventListener('scroll', () => {
+    requestAnimationFrame(updateDots);
+  });
+
+})();
 </script>
 </body>
 </html>
