@@ -1384,6 +1384,7 @@ gap: 0.2vw;
 }
 
 .cs-model {
+    text-decoration: none;
   font-family: var(--montserrat);
   font-size: 3.636vw;
   letter-spacing: -0.04em;
