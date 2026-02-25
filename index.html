@@ -503,5 +503,91 @@ mobileLinks.forEach(link => {
 
 })();
 </script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  const phoneInput = document.querySelector('.bb-field input[type="tel"]');
+  if (!phoneInput) return;
+
+  const PREFIX = '+7';
+
+  // при фокусе
+  phoneInput.addEventListener('focus', () => {
+    if (!phoneInput.value) {
+      phoneInput.value = PREFIX;
+    }
+  });
+
+  // контроль ввода
+  phoneInput.addEventListener('input', () => {
+    if (!phoneInput.value.startsWith(PREFIX)) {
+      phoneInput.value = PREFIX;
+    }
+
+    // оставляем только цифры после +7
+    const digits = phoneInput.value
+      .slice(PREFIX.length)
+      .replace(/\D/g, '');
+
+    phoneInput.value = PREFIX + digits;
+  });
+
+  // защита от удаления +7
+  phoneInput.addEventListener('keydown', (e) => {
+    if (
+      (e.key === 'Backspace' || e.key === 'Delete') &&
+      phoneInput.selectionStart <= PREFIX.length
+    ) {
+      e.preventDefault();
+      phoneInput.setSelectionRange(PREFIX.length, PREFIX.length);
+    }
+  });
+
+  // курсор всегда после +7
+  phoneInput.addEventListener('click', () => {
+    if (phoneInput.selectionStart < PREFIX.length) {
+      phoneInput.setSelectionRange(PREFIX.length, PREFIX.length);
+    }
+  });
+});
+</script>
+<script>
+function initTextarea(textarea) {
+  const style = getComputedStyle(textarea);
+
+  const lineHeight = parseFloat(style.lineHeight);
+  const paddingTop = parseFloat(style.paddingTop);
+  const paddingBottom = parseFloat(style.paddingBottom);
+
+  const maxRows = 4;
+  const maxHeight = lineHeight * maxRows + paddingTop + paddingBottom;
+
+  textarea.style.overflowY = 'hidden';
+  textarea.style.resize = 'none';
+
+  function autoGrow() {
+    textarea.style.height = 'auto'; // сброс
+
+    const newHeight = Math.min(textarea.scrollHeight, maxHeight);
+    textarea.style.height = newHeight + 'px';
+
+    textarea.style.overflowY =
+      textarea.scrollHeight > maxHeight ? 'auto' : 'hidden';
+  }
+
+  textarea.addEventListener('input', autoGrow);
+
+  autoGrow(); // запуск при инициализации
+}
+
+window.addEventListener('load', () => {
+  document.querySelectorAll('.bb-field textarea').forEach(initTextarea);
+});
+
+window.addEventListener('resize', () => {
+  document.querySelectorAll('.bb-field textarea').forEach(t => {
+    t.dispatchEvent(new Event('input'));
+  });
+});
+</script>
 </body>
 </html>
