@@ -911,7 +911,7 @@ gap: 2.5vw;
     display: flex;
     flex-direction: column;
     gap: 4.091vw;
-    border-right: 1px solid #CACACA;
+    border-right: none;
     border-bottom: 1px solid #CACACA;
     padding-left: 5vw;
     padding-top: 3.409vw;
@@ -938,6 +938,7 @@ gap: 2.5vw;
 .product-items {
   position: relative;
     padding: 11.591vw 15.909vw 0 15.909vw;
+    overflow: hidden;
 }
 
 .layout-with-line {
@@ -1008,6 +1009,7 @@ gap: 2.5vw;
   .product-gallery {
     position: relative;
     width: 100%;
+    overflow: visible;
   }
 
   /* фиксированный размер как у тебя был */
