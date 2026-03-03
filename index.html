@@ -167,7 +167,7 @@
 
       <address class="contact-address">
         <div class="c-mail">
-          <a class="c-link" href="mailto:Luxehome77@mail.ru">Почта@mail.ru</a>
+          <a class="c-link" href="mailto:Luxehome77@mail.ru">ilamokrusin901@gmail.com</a>
         </div>
 
         <div class="c-phone">
@@ -490,6 +490,50 @@ window.addEventListener('resize', () => {
   document.querySelectorAll('.bb-field textarea').forEach(t => {
     t.dispatchEvent(new Event('input'));
   });
+});
+</script>
+
+<script>
+document.querySelector('.bb-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const name = this.querySelector('[name="name"]').value;
+    const phone = this.querySelector('[name="phone"]').value;
+    const comment = this.querySelector('[name="comment"]').value;
+
+    const message = 
+`🆕 Новая заявка с сайта Danfoss
+
+👤 Имя: ${name}
+📞 Телефон: ${phone}
+💬 Комментарий: ${comment}
+
+🌐 Страница: ${window.location.href}
+⏰ Время: ${new Date().toLocaleString()}`;
+
+    fetch("https://api.telegram.org/bot8685225096:AAFXgEiHTXmwPOpvR8nqSzIbjJBplD7fFQs/sendMessage", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            chat_id: "-1003730091582",
+            text: message
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.ok) {
+            alert("Заявка отправлена!");
+            document.querySelector('.bb-form').reset();
+        } else {
+            alert("Ошибка Telegram: " + data.description);
+        }
+    })
+    .catch(error => {
+        alert("Ошибка отправки");
+        console.error(error);
+    });
 });
 </script>
 </body>
