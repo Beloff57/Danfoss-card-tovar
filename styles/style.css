@@ -1013,7 +1013,7 @@ gap: 2.5vw;
     background-size: 2.893vw 2.893vw;
 
     cursor: pointer;
-    z-index: 20;
+    z-index: 2;
 
     -webkit-tap-highlight-color: transparent;
   }
