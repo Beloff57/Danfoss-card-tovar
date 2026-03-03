@@ -1587,6 +1587,7 @@ gap: 0.2vw;
         border: 0.23vw solid #000;
         border-radius: 5vw;
         cursor: pointer;
+        color: #000000;
         transition: 0.3s ease;
 }
 
